@@ -8,40 +8,10 @@
         <field name="category_id" ref="base.module_category_hidden"/>
         <field name="implied_ids" eval="[(4, ref('time_tracking_module.group_time_tracker'))]"/>
     </record>
-
-    <record id="model_x_time_entry" model="ir.model">
-        <field name="name">x_time_entry</field>
-        <field name="model">x_time_entry</field>
-        <field name="state">manual</field>
-    </record>
-
-    <record id="model_x_time_entry_batch" model="ir.model">
-        <field name="name">x_time_entry_batch</field>
-        <field name="model">x_time_entry_batch</field>
-        <field name="state">manual</field>
-    </record>
-
-    <record id="model_x_time_entry_approval" model="ir.model">
-        <field name="name">x_time_entry_approval</field>
-        <field name="model">x_time_entry_approval</field>
-        <field name="state">manual</field>
-    </record>
-
-    <record id="model_x_time_rule_policy" model="ir.model">
-        <field name="name">x_time_rule_policy</field>
-        <field name="model">x_time_rule_policy</field>
-        <field name="state">manual</field>
-    </record>
-
-    <record id="model_x_time_sheet_template" model="ir.model">
-        <field name="name">x_time_sheet_template</field>
-        <field name="model">x_time_sheet_template</field>
-        <field name="state">manual</field>
-    </record>
-
     <record id="rule_time_entry_owner" model="ir.rule">
         <field name="name">Time entries: own employee</field>
         <field name="model_id" ref="model_x_time_entry"/>
+        <field name="domain_force">[('employee_id.user_id', '=', user.id)]</field>
         <field name="groups" eval="[(4, ref('time_tracking_module.group_time_tracker'))]"/>
     </record>
 
