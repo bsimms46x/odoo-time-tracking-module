@@ -1,0 +1,65 @@
+<odoo>
+    <record id="demo_project_time_tracking" model="project.project">
+        <field name="name">Time Tracking Pilot</field>
+    </record>
+
+    <record id="demo_task_analysis" model="project.task">
+        <field name="name">Project Health Review</field>
+        <field name="project_id" ref="time_tracking_module.demo_project_time_tracking"/>
+        <field name="planned_hours">20</field>
+    </record>
+
+    <record id="demo_employee_john" model="hr.employee">
+        <field name="name">John Doe</field>
+    </record>
+
+    <record id="demo_employee_maya" model="hr.employee">
+        <field name="name">Maya Lee</field>
+    </record>
+
+    <record id="demo_analytic_account" model="account.analytic.account">
+        <field name="name">Time Tracking Analytics</field>
+    </record>
+
+    <record id="demo_entry_john" model="time.entry">
+        <field name="name">John - Monthly Review</field>
+        <field name="employee_id" ref="time_tracking_module.demo_employee_john"/>
+        <field name="project_id" ref="time_tracking_module.demo_project_time_tracking"/>
+        <field name="task_id" ref="time_tracking_module.demo_task_analysis"/>
+        <field name="date">2026-02-10</field>
+        <field name="duration">4.5</field>
+        <field name="billable">True</field>
+        <field name="description">Deep dive on utilization and backlog.</field>
+        <field name="state">approved</field>
+        <field name="policy_id" ref="time_tracking_policy_standard_hourly"/>
+        <field name="analytic_tag_ids" eval="[(6, 0, [])]"/>
+    </record>
+
+    <record id="demo_entry_maya" model="time.entry">
+        <field name="name">Maya - Support Block</field>
+        <field name="employee_id" ref="time_tracking_module.demo_employee_maya"/>
+        <field name="project_id" ref="time_tracking_module.demo_project_time_tracking"/>
+        <field name="task_id" ref="time_tracking_module.demo_task_analysis"/>
+        <field name="date">2026-02-12</field>
+        <field name="duration">3.0</field>
+        <field name="billable">True</field>
+        <field name="description">Client onboarding support session.</field>
+        <field name="state">submitted</field>
+        <field name="policy_id" ref="time_tracking_policy_standard_hourly"/>
+    </record>
+
+    <record id="demo_approval_john" model="time.entry.approval">
+        <field name="entry_id" ref="time_tracking_module.demo_entry_john"/>
+        <field name="manager_id" eval="False"/>
+        <field name="state">approved</field>
+        <field name="comment">Approved as part of monthly review.</field>
+    </record>
+
+    <record id="demo_batch_weekly" model="time.entry.batch">
+        <field name="name">Week 6 Batch</field>
+        <field name="date_from">2026-02-09</field>
+        <field name="date_to">2026-02-15</field>
+        <field name="state">ready</field>
+        <field name="entry_ids" eval="[(6, 0, [ref('time_tracking_module.demo_entry_john'), ref('time_tracking_module.demo_entry_maya')])]"/>
+    </record>
+</odoo>

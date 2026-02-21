@@ -1,0 +1,25 @@
+<odoo>
+    <record id="group_time_tracker" model="res.groups">
+        <field name="name">Time Tracking User</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+    <record id="group_time_manager" model="res.groups">
+        <field name="name">Time Tracking Manager</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+        <field name="implied_ids" eval="[(4, ref('time_tracking_module.group_time_tracker'))]"/>
+    </record>
+
+    <record id="rule_time_entry_owner" model="ir.rule">
+        <field name="name">Time entries: own employee</field>
+        <field name="model_id" ref="time_tracking_module.model_time_entry"/>
+        <field name="domain_force">[('employee_id.user_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('time_tracking_module.group_time_tracker'))]"/>
+    </record>
+
+    <record id="rule_time_entry_manager" model="ir.rule">
+        <field name="name">Time entries: managed teams</field>
+        <field name="model_id" ref="time_tracking_module.model_time_entry"/>
+        <field name="domain_force">[]</field>
+        <field name="groups" eval="[(4, ref('time_tracking_module.group_time_manager'))]"/>
+    </record>
+</odoo>

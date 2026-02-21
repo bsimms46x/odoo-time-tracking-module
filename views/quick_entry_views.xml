@@ -1,0 +1,36 @@
+<odoo>
+    <record id="time_entry_quick_form" model="ir.ui.view">
+        <field name="name">time.entry.quick.form</field>
+        <field name="model">time.entry</field>
+        <field name="arch" type="xml">
+            <form string="Quick entry" create="true" edit="true">
+                <sheet>
+                    <group>
+                        <field name="project_id"/>
+                        <field name="task_id"/>
+                        <field name="duration"/>
+                        <field name="description"/>
+                        <field name="billable"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_submit" type="object" string="Save &amp; Submit" class="btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_time_quick_entry" model="ir.actions.act_window">
+        <field name="name">Quick Time Entry</field>
+        <field name="res_model">time.entry</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="time_entry_quick_form"/>
+        <field name="target">new</field>
+    </record>
+
+    <record id="menu_quick_entry" model="ir.ui.menu">
+        <field name="name">Quick Entry</field>
+        <field name="parent_id" ref="time_tracking_module.menu_time_tracking"/>
+        <field name="action" ref="action_time_quick_entry"/>
+    </record>
+</odoo>

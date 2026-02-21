@@ -1,0 +1,54 @@
+<odoo>
+    <record id="time_template_tree" model="ir.ui.view">
+        <field name="name">time.sheet.template.tree</field>
+        <field name="model">time.sheet.template</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="default_project_id"/>
+                <field name="default_task_id"/>
+                <field name="default_duration"/>
+                <field name="billable_default"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="time_template_form" model="ir.ui.view">
+        <field name="name">time.sheet.template.form</field>
+        <field name="model">time.sheet.template</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="default_project_id"/>
+                        <field name="default_task_id"/>
+                        <field name="default_duration"/>
+                        <field name="billable_default"/>
+                    </group>
+                    <group>
+                        <field name="analytic_tag_ids" widget="many2many_tags"/>
+                        <field name="policy_id"/>
+                        <field name="default_description"/>
+                    </group>
+                    <footer>
+                        <button name="action_create_entry" type="object" string="Create Entry" class="oe_highlight"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="time_template_action" model="ir.actions.act_window">
+        <field name="name">Time Entry Templates</field>
+        <field name="res_model">time.sheet.template</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="time_template_tree"/>
+    </record>
+
+    <record id="time_template_menu" model="ir.ui.menu">
+        <field name="name">Entry Templates</field>
+        <field name="parent_id" ref="time_tracking_module.menu_time_tracking"/>
+        <field name="action" ref="time_template_action"/>
+    </record>
+</odoo>

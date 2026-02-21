@@ -1,0 +1,3 @@
+<odoo>
+    <menuitem id="menu_time_tracking" name="Time Tracking" sequence="10"/>
+</odoo>

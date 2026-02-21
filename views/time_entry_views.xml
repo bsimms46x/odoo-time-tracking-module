@@ -1,0 +1,113 @@
+<odoo>
+    <record id="time_entry_action_window" model="ir.actions.act_window">
+        <field name="name">Time Entries</field>
+        <field name="res_model">time.entry</field>
+        <field name="view_mode">list,form,kanban,calendar</field>
+        <field name="context">{'default_state': 'draft'}</field>
+    </record>
+
+    <record id="time_entry_menu" model="ir.ui.menu">
+        <field name="name">Time Entries</field>
+        <field name="parent_id" ref="time_tracking_module.menu_time_tracking"
+            />
+        <field name="action" ref="time_entry_action_window"/>
+    </record>
+
+    <record id="time_entry_tree" model="ir.ui.view">
+        <field name="name">time.entry.tree</field>
+        <field name="model">time.entry</field>
+        <field name="arch" type="xml">
+            <list string="Time Entries">
+                <field name="date"/>
+                <field name="employee_id"/>
+                <field name="project_id"/>
+                <field name="task_id"/>
+                <field name="duration"/>
+                <field name="billable"/>
+                <field name="state"/>
+                <field name="budget_exceeded"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="time_entry_form" model="ir.ui.view">
+        <field name="name">time.entry.form</field>
+        <field name="model">time.entry</field>
+        <field name="arch" type="xml">
+            <form string="Time Entry">
+                <header>
+                    <button name="action_start_timer" type="object" string="Start Timer" class="oe_stat_button" modifiers="{'invisible': [('timer_state', '!=', 'stopped')]}"/>
+                    <button name="action_pause_timer" type="object" string="Pause" class="oe_stat_button" modifiers="{'invisible': [('timer_state', '!=', 'running')]}"/>
+                    <button name="action_stop_timer" type="object" string="Stop" class="oe_stat_button" modifiers="{'invisible': [('timer_state', 'not in', ('running', 'paused'))]}"/>
+                    <button name="action_submit" type="object" string="Submit" class="btn-primary" modifiers="{'invisible': [('state', 'not in', ('draft', 'rejected'))]}"/>
+                    <button name="action_approve" type="object" string="Approve" class="btn-success" groups="time_tracking_module.group_time_manager" modifiers="{'invisible': [('state', '!=', 'submitted')]}"/>
+                    <button name="action_reject" type="object" string="Reject" groups="time_tracking_module.group_time_manager" modifiers="{'invisible': [('state', '!=', 'submitted')]}"/>
+                    <button name="action_reset" type="object" string="Reset" class="btn-secondary"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submitted,approved,rejected"/>
+                    <field name="budget_exceeded" widget="boolean_toggle" options="{'terminology': 'budget'}"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="employee_id"/>
+                        <field name="date"/>
+                        <field name="project_id"/>
+                        <field name="task_id"/>
+                        <field name="duration"/>
+                        <field name="billable"/>
+                        <field name="policy_id"/>
+                        <field name="unit_amount"/>
+                    </group>
+                    <group>
+                        <field name="description"/>
+                        <field name="analytic_tag_ids" widget="many2many_tags"/>
+                    </group>
+                    <notebook>
+                        <page string="Approvals">
+                            <field name="approval_ids">
+                                <list editable="bottom">
+                                    <field name="manager_id"/>
+                                    <field name="state"/>
+                                    <field name="comment"/>
+                                    <field name="date"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Timer">
+                            <group>
+                                <field name="start_time"/>
+                                <field name="end_time"/>
+                                <field name="timer_state"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="time_entry_search" model="ir.ui.view">
+        <field name="name">time.entry.search</field>
+        <field name="model">time.entry</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="date"/>
+                <field name="employee_id"/>
+                <field name="project_id"/>
+                <field name="state"/>
+                <field name="billable"/>
+                <filter name="pending" string="Pending Approval" domain="[('state', '=', 'submitted')]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="time_entry_calendar" model="ir.ui.view">
+        <field name="name">time.entry.calendar</field>
+        <field name="model">time.entry</field>
+        <field name="arch" type="xml">
+            <calendar string="Tracked Hours" date_start="date" color="state">
+                <field name="name"/>
+                <field name="employee_id"/>
+            </calendar>
+        </field>
+    </record>
+</odoo>

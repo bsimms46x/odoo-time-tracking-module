@@ -1,0 +1,11 @@
+<odoo>
+    <record id="cron_notify_pending_entries" model="ir.cron">
+        <field name="name">Notify pending time entries</field>
+        <field name="model_id" ref="time_tracking_module.model_time_entry"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_notify_pending_entries()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active" eval="True"/>
+    </record>
+</odoo>

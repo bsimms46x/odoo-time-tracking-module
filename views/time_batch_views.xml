@@ -1,0 +1,61 @@
+<odoo>
+    <record id="time_batch_tree" model="ir.ui.view">
+        <field name="name">time.entry.batch.tree</field>
+        <field name="model">time.entry.batch</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="state"/>
+                <field name="total_hours"/>
+                <field name="billable_amount"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="time_batch_form" model="ir.ui.view">
+        <field name="name">time.entry.batch.form</field>
+        <field name="model">time.entry.batch</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_request_review" type="object" string="Request Review" modifiers="{'invisible': [('state', '!=', 'draft')]}" class="oe_highlight"/>
+                    <button name="action_ready_for_billing" type="object" string="Ready for Billing" modifiers="{'invisible': [('state', '!=', 'review')]}"/>
+                    <button name="action_mark_invoiced" type="object" string="Mark Invoiced" modifiers="{'invisible': [('state', '!=', 'ready')]}" class="btn-success"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,review,ready,invoiced"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                        <field name="total_hours" readonly="1"/>
+                        <field name="billable_amount" readonly="1"/>
+                    </group>
+                    <field name="entry_ids">
+                        <list>
+                            <field name="name"/>
+                            <field name="state"/>
+                            <field name="duration"/>
+                            <field name="billable"/>
+                        </list>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="time_batch_action" model="ir.actions.act_window">
+        <field name="name">Batches</field>
+        <field name="res_model">time.entry.batch</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="time_batch_tree"/>
+    </record>
+
+    <record id="time_batch_menu" model="ir.ui.menu">
+        <field name="name">Approval Batches</field>
+        <field name="parent_id" ref="time_tracking_module.menu_time_tracking"/>
+        <field name="action" ref="time_batch_action"/>
+    </record>
+</odoo>
