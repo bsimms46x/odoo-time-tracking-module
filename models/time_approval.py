@@ -2,11 +2,11 @@ from odoo import fields, models
 
 
 class TimeEntryApproval(models.Model):
-    _name = "time.entry.approval"
+    _name = "x_time_entry_approval"
     _description = "Entry approval log"
     _order = "date desc"
 
-    entry_id = fields.Many2one("time.entry", string="Time Entry", required=True, ondelete="cascade")
+    entry_id = fields.Many2one("x_time_entry", string="Time Entry", required=True, ondelete="cascade")
     manager_id = fields.Many2one("res.users", string="Manager", default=lambda self: self.env.user)
     state = fields.Selection([
         ("approved", "Approved"),

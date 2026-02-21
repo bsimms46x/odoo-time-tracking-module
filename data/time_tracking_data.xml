@@ -1,7 +1,13 @@
 <odoo>
+    <record id="time_tracking_policy_standard_hourly" model="x_time_rule_policy">
+        <field name="name">Standard hourly policy</field>
+        <field name="billable_type">hourly</field>
+        <field name="price_per_unit">120.0</field>
+    </record>
+
     <record id="cron_notify_pending_entries" model="ir.cron">
         <field name="name">Notify pending time entries</field>
-        <field name="model_id" ref="time_tracking_module.model_time_entry"/>
+        <field name="model_id" ref="time_tracking_module.model_x_time_entry"/>
         <field name="state">code</field>
         <field name="code">model._cron_notify_pending_entries()</field>
         <field name="interval_number">1</field>

@@ -11,13 +11,13 @@ class TestTimeEntry(TransactionCase):
         try:
             self.policy = self.env.ref('time_tracking_module.time_tracking_policy_standard_hourly')
         except ValueError:
-            self.policy = self.env['time.rule.policy'].create({
+            self.policy = self.env['x_time_rule_policy'].create({
                 'name': 'Hourly Test Policy',
                 'price_per_unit': 100.0,
             })
 
     def _create_entry(self, state='draft'):
-        return self.env['time.entry'].create({
+        return self.env['x_time_entry'].create({
             'employee_id': self.employee.id,
             'duration': 2.0,
             'billable': True,

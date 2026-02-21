@@ -21,7 +21,7 @@
         <field name="name">Time Tracking Analytics</field>
     </record>
 
-    <record id="demo_entry_john" model="time.entry">
+    <record id="demo_entry_john" model="x_time_entry">
         <field name="name">John - Monthly Review</field>
         <field name="employee_id" ref="time_tracking_module.demo_employee_john"/>
         <field name="project_id" ref="time_tracking_module.demo_project_time_tracking"/>
@@ -35,7 +35,7 @@
         <field name="analytic_tag_ids" eval="[(6, 0, [])]"/>
     </record>
 
-    <record id="demo_entry_maya" model="time.entry">
+    <record id="demo_entry_maya" model="x_time_entry">
         <field name="name">Maya - Support Block</field>
         <field name="employee_id" ref="time_tracking_module.demo_employee_maya"/>
         <field name="project_id" ref="time_tracking_module.demo_project_time_tracking"/>
@@ -48,14 +48,14 @@
         <field name="policy_id" ref="time_tracking_policy_standard_hourly"/>
     </record>
 
-    <record id="demo_approval_john" model="time.entry.approval">
+    <record id="demo_approval_john" model="x_time_entry_approval">
         <field name="entry_id" ref="time_tracking_module.demo_entry_john"/>
         <field name="manager_id" eval="False"/>
         <field name="state">approved</field>
         <field name="comment">Approved as part of monthly review.</field>
     </record>
 
-    <record id="demo_batch_weekly" model="time.entry.batch">
+    <record id="demo_batch_weekly" model="x_time_entry_batch">
         <field name="name">Week 6 Batch</field>
         <field name="date_from">2026-02-09</field>
         <field name="date_to">2026-02-15</field>

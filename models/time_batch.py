@@ -3,7 +3,7 @@ from odoo.exceptions import ValidationError
 
 
 class TimeEntryBatch(models.Model):
-    _name = "time.entry.batch"
+    _name = "x_time_entry_batch"
     _description = "Batch of time entries for reviews"
     _order = "date_from desc, id desc"
 
@@ -16,7 +16,7 @@ class TimeEntryBatch(models.Model):
         ("ready", "Ready for Billing"),
         ("invoiced", "Invoiced"),
     ], default="draft")
-    entry_ids = fields.One2many("time.entry", "batch_id", string="Entries")
+    entry_ids = fields.One2many("x_time_entry", "batch_id", string="Entries")
     total_hours = fields.Float(compute="_compute_totals", store=True)
     billable_amount = fields.Monetary(compute="_compute_totals", store=True, currency_field="company_currency")
     company_currency = fields.Many2one("res.currency", compute="_compute_currency", store=True)

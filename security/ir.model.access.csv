@@ -1,8 +1,8 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_time_entry_user,time.entry: user,time_tracking_module.model_time_entry,time_tracking_module.group_time_tracker,1,1,1,0
-access_time_entry_manager,time.entry: manager,time_tracking_module.model_time_entry,time_tracking_module.group_time_manager,1,1,1,1
-access_time_template_user,time.sheet.template: user,time_tracking_module.model_time_sheet_template,time_tracking_module.group_time_tracker,1,1,1,0
-access_time_template_manager,time.sheet.template: manager,time_tracking_module.model_time_sheet_template,time_tracking_module.group_time_manager,1,1,1,1
-access_time_approval_manager,time.entry.approval: manager,time_tracking_module.model_time_entry_approval,time_tracking_module.group_time_manager,1,1,1,0
-access_time_batch_manager,time.entry.batch: manager,time_tracking_module.model_time_entry_batch,time_tracking_module.group_time_manager,1,1,1,1
-access_time_rule_manager,time.rule.policy: manager,time_tracking_module.model_time_rule_policy,time_tracking_module.group_time_manager,1,1,1,1
+access_time_entry_user,x_time_entry: user,time_tracking_module.model_x_time_entry,time_tracking_module.group_time_tracker,1,1,1,0
+access_time_entry_manager,x_time_entry: manager,time_tracking_module.model_x_time_entry,time_tracking_module.group_time_manager,1,1,1,1
+access_time_template_user,x_time_sheet_template: user,time_tracking_module.model_x_time_sheet_template,time_tracking_module.group_time_tracker,1,1,1,0
+access_time_template_manager,x_time_sheet_template: manager,time_tracking_module.model_x_time_sheet_template,time_tracking_module.group_time_manager,1,1,1,1
+access_time_approval_manager,x_time_entry_approval: manager,time_tracking_module.model_x_time_entry_approval,time_tracking_module.group_time_manager,1,1,1,0
+access_time_batch_manager,x_time_entry_batch: manager,time_tracking_module.model_x_time_entry_batch,time_tracking_module.group_time_manager,1,1,1,1
+access_time_rule_manager,x_time_rule_policy: manager,time_tracking_module.model_x_time_rule_policy,time_tracking_module.group_time_manager,1,1,1,1

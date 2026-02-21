@@ -2,7 +2,7 @@ from odoo import api, fields, models
 
 
 class TimeSheetTemplate(models.Model):
-    _name = "time.sheet.template"
+    _name = "x_time_sheet_template"
     _description = "Time entry template"
 
     name = fields.Char(required=True)
@@ -12,11 +12,11 @@ class TimeSheetTemplate(models.Model):
     billable_default = fields.Boolean(default=True)
     analytic_tag_ids = fields.Many2many("account.analytic.tag", string="Analytic Tags")
     default_description = fields.Text()
-    policy_id = fields.Many2one("time.rule.policy", string="Billing Policy")
+    policy_id = fields.Many2one("x_time_rule_policy", string="Billing Policy")
 
     def action_create_entry(self):
         self.ensure_one()
-        entry = self.env["time.entry"].create({
+        entry = self.env["x_time_entry"].create({
             "name": self.name,
             "project_id": self.default_project_id.id,
             "task_id": self.default_task_id.id,
@@ -28,7 +28,7 @@ class TimeSheetTemplate(models.Model):
         })
         return {
             "type": "ir.actions.act_window",
-            "res_model": "time.entry",
+            "res_model": "x_time_entry",
             "res_id": entry.id,
             "view_mode": "form",
         }

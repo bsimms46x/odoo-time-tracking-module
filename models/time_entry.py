@@ -3,7 +3,7 @@ from odoo.exceptions import ValidationError
 
 
 class TimeEntry(models.Model):
-    _name = "time.entry"
+    _name = "x_time_entry"
     _description = "Tracked time entry"
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _order = "date desc, id desc"
@@ -34,9 +34,9 @@ class TimeEntry(models.Model):
     ], default="stopped")
     start_time = fields.Datetime()
     end_time = fields.Datetime()
-    batch_id = fields.Many2one("time.entry.batch", string="Batch")
-    approval_ids = fields.One2many("time.entry.approval", "entry_id", string="Approvals")
-    policy_id = fields.Many2one("time.rule.policy", string="Billing Policy")
+    batch_id = fields.Many2one("x_time_entry_batch", string="Batch")
+    approval_ids = fields.One2many("x_time_entry_approval", "entry_id", string="Approvals")
+    policy_id = fields.Many2one("x_time_rule_policy", string="Billing Policy")
     budget_exceeded = fields.Boolean(compute="_compute_budget_exceeded", store=True)
 
     @api.depends("duration", "task_id")
@@ -44,7 +44,7 @@ class TimeEntry(models.Model):
         for entry in self:
             if entry.task_id and entry.task_id.planned_hours:
                 total = sum(
-                    self.env['time.entry'].search([('task_id', '=', entry.task_id.id)]).mapped('duration'))
+                    self.env['x_time_entry'].search([('task_id', '=', entry.task_id.id)]).mapped('duration'))
                 entry.budget_exceeded = total > (entry.task_id.planned_hours or 0.0)
             else:
                 entry.budget_exceeded = False
@@ -64,7 +64,7 @@ class TimeEntry(models.Model):
         for entry in self:
             policy = entry.policy_id
             if not policy and entry.project_id:
-                policy = self.env['time.rule.policy'].search([
+                policy = self.env['x_time_rule_policy'].search([
                     ('project_ids', 'in', entry.project_id.id)], limit=1)
             if policy and entry.billable and entry.duration:
                 entry.unit_amount = policy.compute_amount(entry)
@@ -110,7 +110,7 @@ class TimeEntry(models.Model):
             if entry.state != 'submitted':
                 raise ValidationError(_('Only submitted entries can be approved.'))
             entry.state = 'approved'
-            self.env['time.entry.approval'].create({
+            self.env['x_time_entry_approval'].create({
                 'entry_id': entry.id,
                 'manager_id': self.env.user.id,
                 'state': 'approved',
@@ -123,7 +123,7 @@ class TimeEntry(models.Model):
             if entry.state != 'submitted':
                 raise ValidationError(_('Only submitted entries can be rejected.'))
             entry.state = 'rejected'
-            self.env['time.entry.approval'].create({
+            self.env['x_time_entry_approval'].create({
                 'entry_id': entry.id,
                 'manager_id': self.env.user.id,
                 'state': 'rejected',
@@ -137,7 +137,7 @@ class TimeEntry(models.Model):
             entry.batch_id = False
 
     def action_prepare_batch(self):
-        batch = self.env['time.entry.batch'].create({
+        batch = self.env['x_time_entry_batch'].create({
             'name': 'Batch %s' % fields.Date.today(),
             'date_from': min(self.mapped('date')),
             'date_to': max(self.mapped('date')),

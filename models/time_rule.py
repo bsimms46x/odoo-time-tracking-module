@@ -2,7 +2,7 @@ from odoo import fields, models
 
 
 class TimeRulePolicy(models.Model):
-    _name = "time.rule.policy"
+    _name = "x_time_rule_policy"
     _description = "Time entry billing/rate policy"
 
     name = fields.Char(required=True)

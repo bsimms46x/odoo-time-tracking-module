@@ -1,7 +1,7 @@
 <odoo>
     <record id="time_entry_action_window" model="ir.actions.act_window">
         <field name="name">Time Entries</field>
-        <field name="res_model">time.entry</field>
+        <field name="res_model">x_time_entry</field>
         <field name="view_mode">list,form,kanban,calendar</field>
         <field name="context">{'default_state': 'draft'}</field>
     </record>
@@ -14,8 +14,8 @@
     </record>
 
     <record id="time_entry_tree" model="ir.ui.view">
-        <field name="name">time.entry.tree</field>
-        <field name="model">time.entry</field>
+        <field name="name">x_time_entry.tree</field>
+        <field name="model">x_time_entry</field>
         <field name="arch" type="xml">
             <list string="Time Entries">
                 <field name="date"/>
@@ -31,8 +31,8 @@
     </record>
 
     <record id="time_entry_form" model="ir.ui.view">
-        <field name="name">time.entry.form</field>
-        <field name="model">time.entry</field>
+        <field name="name">x_time_entry.form</field>
+        <field name="model">x_time_entry</field>
         <field name="arch" type="xml">
             <form string="Time Entry">
                 <header>
@@ -86,8 +86,8 @@
     </record>
 
     <record id="time_entry_search" model="ir.ui.view">
-        <field name="name">time.entry.search</field>
-        <field name="model">time.entry</field>
+        <field name="name">x_time_entry.search</field>
+        <field name="model">x_time_entry</field>
         <field name="arch" type="xml">
             <search>
                 <field name="date"/>
@@ -101,8 +101,8 @@
     </record>
 
     <record id="time_entry_calendar" model="ir.ui.view">
-        <field name="name">time.entry.calendar</field>
-        <field name="model">time.entry</field>
+        <field name="name">x_time_entry.calendar</field>
+        <field name="model">x_time_entry</field>
         <field name="arch" type="xml">
             <calendar string="Tracked Hours" date_start="date" color="state">
                 <field name="name"/>
